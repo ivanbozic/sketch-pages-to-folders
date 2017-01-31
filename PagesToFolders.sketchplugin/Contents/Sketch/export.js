@@ -3,8 +3,37 @@ var Utilities = { };
 Utilities.createFolder = function (path) {
 	var fileManager = NSFileManager.defaultManager();
 
+	// TODO Check if this failes to create the directory,
+	// break the flow and alert the user.
 	fileManager.createDirectoryAtPath_withIntermediateDirectories_attributes_error_(path, true, nil, nil);
 };
+
+Utilities.deleteFolder = function (path) {
+	var fileManager = NSFileManager.defaultManager();
+
+	// TODO Check if this failes to create the directory,
+	// break the flow and alert the user.
+	fileManager.createDirectoryAtPath_withIntermediateDirectories_attributes_error_(path, true, nil, nil);
+};
+
+Utilities.cleanArtboardName = function (name) {
+	var cleanedUpName = "";
+
+	log(cleanedUpName);
+
+	for (var character in name) {
+		if (name[character] != "/")
+			cleanedUpName += name[character];
+		else
+			cleanedUpName += "-";
+	}
+
+	log(cleanedUpName);
+
+	return cleanedUpName;
+};
+
+console.log(Utilities.cleanArtboardName("asdfadf"));
 
 function exportAllPages(context) {
 	var sketch = context.api();
@@ -17,6 +46,9 @@ function exportAllPages(context) {
 
 	// TODO Before creating the folder, delete the existing ones since
 	// we're going to be recreating them anyway.
+	//
+	// Documentation for NSFileManager.removeItemAtPath()
+	// https://developer.apple.com/reference/foundation/nsfilemanager/1408573-removeitematpath?language=objc
 	Utilities.createFolder(rootFolder);
 
 	var pageCounter = 1;
@@ -35,10 +67,16 @@ function exportAllPages(context) {
 			for (var j = 0; j < artboards.count(); j++) {
 				var artboard = artboards[j];
 
-				// TODO Before saving the artboard, make sure that the name
-				// of the artboard does not contain a slash (/) since that
-				// can create additional folders.
-				doc.saveArtboardOrSlice_toFile_(artboard, pageFolderPath + artboard.name() + ".png");
+				application.log(artboard.name());
+
+				var artboardNameWithDashesInsteadOfSlashes = Utilities.cleanArtboardName(artboard.name());
+
+				application.log(artboardNameWithDashesInsteadOfSlashes);
+
+				// TODO Try and get the exportable options for each artboard,
+				// and export it that way. If there are no export options,
+				// export the file as a @1x .png file.
+				doc.saveArtboardOrSlice_toFile_(artboard, pageFolderPath + artboardNameWithDashesInsteadOfSlashes + ".png");
 			}
 
 			pageCounter = pageCounter + 1;
