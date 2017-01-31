@@ -1,0 +1,2 @@
+# Ignore the macOS folder attribute files.
+.DS_Store

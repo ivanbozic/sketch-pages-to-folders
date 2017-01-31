@@ -15,11 +15,35 @@ function exportAllPages(context) {
 
 	var rootFolder = fileFolder + "Pages to Folders/";
 
+	// TODO Before creating the folder, delete the existing ones since
+	// we're going to be recreating them anyway.
 	Utilities.createFolder(rootFolder);
+
+	var pageCounter = 1;
 
 	for (var i = 0; i < pages.count(); i++) {
 		var currentPage = pages[i];
 
-		Utilities.createFolder(rootFolder + pages[i].name() + "/");
+		if (pages[i].name() != "Symbols") {
+			var pageFolderPath = rootFolder + pageCounter.toString() + " \u2013 " + pages[i].name() + "/";
+			Utilities.createFolder(pageFolderPath);
+
+			doc.setCurrentPage(currentPage);
+
+			var artboards = doc.currentPage().artboards();
+
+			for (var j = 0; j < artboards.count(); j++) {
+				var artboard = artboards[j];
+
+				// TODO Before saving the artboard, make sure that the name
+				// of the artboard does not contain a slash (/) since that
+				// can create additional folders.
+				doc.saveArtboardOrSlice_toFile_(artboard, pageFolderPath + artboard.name() + ".png");
+			}
+
+			pageCounter = pageCounter + 1;
+		}
 	}
+
+	application.alert("This plugin is still under active development and does not work fully. Your export can be found in a new folder right next to the file you wanted to export.", "Warning");
 };
