@@ -9,31 +9,21 @@ Utilities.createFolder = function (path) {
 };
 
 Utilities.deleteFolder = function (path) {
-	var fileManager = NSFileManager.defaultManager();
-
-	// TODO Check if this failes to create the directory,
-	// break the flow and alert the user.
-	fileManager.createDirectoryAtPath_withIntermediateDirectories_attributes_error_(path, true, nil, nil);
+	// TODO Implement the Utilities.deleteFolder(path) method.
 };
 
 Utilities.cleanArtboardName = function (name) {
 	var cleanedUpName = "";
 
-	log(cleanedUpName);
-
-	for (var character in name) {
-		if (name[character] != "/")
-			cleanedUpName += name[character];
+	for (var i = 0; i < name.length; i++) {
+		if (name[i] != "/")
+			cleanedUpName += name[i];
 		else
 			cleanedUpName += "-";
 	}
 
-	log(cleanedUpName);
-
 	return cleanedUpName;
 };
-
-console.log(Utilities.cleanArtboardName("asdfadf"));
 
 function exportAllPages(context) {
 	var sketch = context.api();
@@ -66,12 +56,7 @@ function exportAllPages(context) {
 
 			for (var j = 0; j < artboards.count(); j++) {
 				var artboard = artboards[j];
-
-				application.log(artboard.name());
-
-				var artboardNameWithDashesInsteadOfSlashes = Utilities.cleanArtboardName(artboard.name());
-
-				application.log(artboardNameWithDashesInsteadOfSlashes);
+				var artboardNameWithDashesInsteadOfSlashes = Utilities.cleanArtboardName(String(artboard.name()));
 
 				// TODO Try and get the exportable options for each artboard,
 				// and export it that way. If there are no export options,
