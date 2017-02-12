@@ -38,5 +38,5 @@ function exportAllPages(context) {
 		}
 	}
 
-	application.alert("This plugin is still under active development and does not work fully. Your export can be found in a new folder right next to the file you wanted to export.", "Warning");
+	application.alert("You can find the exported files in a folder next to your original file.", "Export Successful!");
 };
