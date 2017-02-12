@@ -3,7 +3,7 @@
   "description": "Sketch plugin that exports all the artboards of a Sketch file into folders, which are based on the pages of the Sketch file.",
   "author": "Ivan Bozic",
   "homepage": "http://github.com/ivanbozic/sketch-pages-to-folders",
-  "version": 0.5,
+  "version": 1.0,
   "identifier": "com.ivanbozic.sketch.pages-to-folders",
   "compatibleVersion": 42,
   "bundleVersion": 1,
