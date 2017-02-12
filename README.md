@@ -1,6 +1,8 @@
-![Sketch Pages-to-Folders](/Images/pages-to-folders-hero.png)
+# Sketch Pages-to-Folders Plugin
 
 [Sketch](https://www.sketchapp.com/) plugin that exports all the artboards of a Sketch file into folders, which are named after the pages of the Sketch file.
+
+![Sketch Pages-to-Folders](/Images/pages-to-folders-hero.png)
 
 ## Installation
 
